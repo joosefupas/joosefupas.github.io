@@ -4,153 +4,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Giuseppe Pasculli</title>
 
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700&display=swap");
+
+        :root {
+            --bg: #090a0f;
+            --bg-soft: #10111a;
+            --text: #f2f2f4;
+            --muted: #9ca3af;
+            --faint: #6b7280;
+            --line: #242631;
+            --pink: #ff4fd8;
+            --cyan: #4deeea;
+            --violet: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #0b0f14;
-            color: #e6e6e6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Helvetica, Arial, sans-serif;
-            max-width: 850px;
-            margin: 60px auto;
-            padding: 0 25px;
-            line-height: 1.8;
+            margin: 0;
+            background:
+                radial-gradient(circle at top left, rgba(255, 79, 216, 0.12), transparent 28rem),
+                radial-gradient(circle at top right, rgba(77, 238, 234, 0.10), transparent 26rem),
+                linear-gradient(180deg, #090a0f 0%, #0c0d14 45%, #090a0f 100%);
+            color: var(--text);
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 14px;
+            line-height: 1.7;
         }
 
-        .nav {
-            text-align: right;
-            margin-bottom: 60px;
-            font-size: 0.95rem;
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, transparent, black 12%, black 78%, transparent);
         }
 
-        .nav a {
-            color: #aab7c4;
+        .page {
+            position: relative;
+            width: min(860px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 42px 0 80px;
+        }
+
+        header {
+            padding-bottom: 34px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 42px;
+        }
+
+        .name {
+            margin: 0 0 10px;
+            font-family: "Orbitron", sans-serif;
+            font-size: clamp(2.2rem, 6vw, 4.4rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-transform: lowercase;
+            color: var(--text);
+        }
+
+        .name span {
+            color: var(--cyan);
+            text-shadow: 0 0 20px rgba(77, 238, 234, 0.35);
+        }
+
+        .subtitle {
+            color: var(--muted);
+            max-width: 700px;
+        }
+
+        .subtitle strong {
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            margin-top: 18px;
+            color: var(--faint);
+            font-size: 0.82rem;
+        }
+
+        .contact a {
+            color: var(--muted);
             text-decoration: none;
-            margin-left: 20px;
         }
 
-        .nav a:hover {
-            color: white;
+        .contact a:hover {
+            color: var(--cyan);
         }
 
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.3rem;
+        section {
+            margin-bottom: 46px;
         }
 
-        h2 {
-            margin-top: 40px;
-            margin-bottom: 15px;
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            color: var(--cyan);
+            font-family: "Orbitron", sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .entry {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 26px;
+            padding: 0 0 26px;
+            margin-bottom: 26px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .entry:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .date {
+            color: var(--faint);
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .role {
+            margin: 0 0 4px;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .org {
+            margin-bottom: 10px;
+            color: var(--pink);
+            font-size: 0.84rem;
+        }
+
+        .meta {
+            color: var(--faint);
         }
 
         p {
-            color: #d0d0d0;
+            margin: 0 0 12px;
+            color: var(--muted);
+        }
+
+        ul {
+            margin: 10px 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        li {
+            position: relative;
+            margin-bottom: 9px;
+            padding-left: 18px;
+            color: var(--muted);
+        }
+
+        li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            border: 1px solid rgba(77, 238, 234, 0.25);
+            color: var(--cyan);
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 0.72rem;
+            background: rgba(77, 238, 234, 0.04);
+        }
+
+        .compact-list li {
+            margin-bottom: 7px;
         }
 
         a {
-            color: #7aa2f7;
+            color: var(--cyan);
             text-decoration: none;
         }
 
         a:hover {
-            text-decoration: underline;
+            color: var(--pink);
         }
 
-        hr {
-            border: none;
-            border-top: 1px solid #2a2f36;
-            margin: 35px 0;
+        footer {
+            margin-top: 54px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            color: var(--faint);
+            font-size: 0.78rem;
         }
 
-        ul {
-            padding-left: 20px;
-        }
+        @media (max-width: 700px) {
+            body {
+                font-size: 13px;
+            }
 
-        .subtitle {
-            color: #9aa5b1;
-            margin-bottom: 25px;
-        }
+            .page {
+                width: min(100% - 28px, 860px);
+                padding-top: 32px;
+            }
 
-        .footer {
-            margin-top: 60px;
-            color: #808080;
-            font-size: 0.9rem;
+            .entry {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .date {
+                color: var(--cyan);
+            }
         }
     </style>
 </head>
 
 <body>
+    <main class="page">
 
-    <div class="nav">
-        /home</a>
-        <av.pdfcv</a>
-        /publications.htmlpublications</a>
-        /projects.htmlprojects</a>
-    </div>
+        <header>
+            <h1 class="name">giuseppe <span>pasculli</span></h1>
 
-    <h1>Giuseppe Pasculli</h1>
+            <div class="subtitle">
+                <strong>Principal Pharmacometrics Scientist</strong> working across model-informed drug development,
+                pharmacometrics, Bayesian statistics, machine learning, quantitative clinical pharmacology, and
+                evidence generation.
+            </div>
 
-    <div class="subtitle">
-        Principal Pharmacometrics Scientist · London, United Kingdom
-    </div>
+            <div class="contact">
+                <span>London, United Kingdom</span>
+                <a href="https://github.com/joosefupas" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/giuseppe-pasculli" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://orcid.org/0000-0002-0499-2292" target="_blank" rel="noopener noreferrer">ORCID</a>
+            </div>
+        </header>
 
-    <hr>
+        <section>
+            <div class="section-title">Profile</div>
 
-    <p>
-        I work in model-informed drug development (MIDD), pharmacometrics,
-        Bayesian statistics, machine learning, and quantitative clinical
-        pharmacology.
-    </p>
+            <p>
+                I work in model-informed drug development, pharmacometrics, Bayesian statistics, machine learning, and
+                quantitative clinical pharmacology.
+            </p>
 
-    <p>
-        Currently I am a Principal Pharmacometrics Scientist at Novartis,
-        supporting evidence generation and quantitative decision making in
-        immunology and rare diseases.
-    </p>
+            <p>
+                Currently, I am a Principal Pharmacometrics Scientist at Novartis, supporting evidence generation and
+                quantitative decision-making in immunology and rare diseases.
+            </p>
 
-    <p>
-        My background spans clinical pharmacy, pharmacometrics,
-        biostatistics, data science, AI-enabled drug development,
-        neuroscience, and regulatory research.
-    </p>
+            <p>
+                My background spans clinical pharmacy, pharmacometrics, biostatistics, data science, AI-enabled drug
+                development, neuroscience, and regulatory research.
+            </p>
+        </section>
 
-    <hr>
+        <section>
+            <div class="section-title">Work Experience</div>
 
-    <h2>Areas of Interest</h2>
+            <article class="entry">
+                <div class="date">Aug 2025 — Today</div>
+                <div>
+                    <h2 class="role">Principal Pharmacometrics Scientist</h2>
+                    <div class="org">Novartis UK <span class="meta">· Hybrid, London</span></div>
+                    <p>
+                        Principal Pharmacometrician within Medical Affairs, working in the Evidence Generation group of
+                        Pharmacometrics. Focused on immunology and rare diseases, designing and implementing advanced
+                        quantitative strategies to support model-informed drug development and evidence-based
+                        decision-making.
+                    </p>
+                    <p>
+                        Partner closely with Statistics, Data Science, and Medical Affairs teams to deliver analyses
+                        informing clinical strategy and real-world evidence generation.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Monolix</span>
+                        <span class="tag">AI ML</span>
+                        <span class="tag">HPC</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">Jira</span>
+                    </div>
+                </div>
+            </article>
 
-    <ul>
-        <li>Pharmacometrics and MIDD</li>
-        <li>Exposure-response modelling</li>
-        <li>Bayesian modelling</li>
-        <li>Clinical trial simulation</li>
-        <li>Machine learning in drug development</li>
-        <li>Synthetic data and evidence generation</li>
-        <li>Neuroscience and psychedelic medicine research</li>
-    </ul>
+            <article class="entry">
+                <div class="date">May 2023 — Jul 2025</div>
+                <div>
+                    <h2 class="role">Project Manager, Pharmacometrician to Senior Pharmacometrician</h2>
+                    <div class="org">InSilicoTrials Technologies <span class="meta">· Remote</span></div>
+                    <ul>
+                        <li>
+                            <strong>Project Manager, Pharmacometrician</strong>, May 2023 — Dec 2024:
+                            conducted popPKPD analyses using R, Python, and Monolix; led technology transfer initiatives
+                            including HPC and cloud service integration within an AI platform.
+                        </li>
+                        <li>
+                            <strong>Project Manager, Senior Pharmacometrician</strong>, Jan 2025 — Jul 2025:
+                            led development and implementation of popPKPD models supporting drug development and
+                            regulatory submissions.
+                        </li>
+                        <li>
+                            Integrated ML and AI into pharmacometric workflows, contributed to AI product vision,
+                            standardized data pipelines, model reproducibility, and documentation for auditability.
+                        </li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Monolix</span>
+                        <span class="tag">AI ML</span>
+                        <span class="tag">HPC</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">Jira</span>
+                    </div>
+                </div>
+            </article>
 
-    <hr>
+            <article class="entry">
+                <div class="date">Mar 2024 — Today</div>
+                <div>
+                    <h2 class="role">Research and Scientific Roles</h2>
+                    <div class="org">Multiple organizations <span class="meta">· United Kingdom and Italy</span></div>
+                    <ul>
+                        <li>
+                            <strong>Scientific Committee Member, Italian Society of Psychedelic Medicine, SIMEPSI</strong>,
+                            Mar 2024 — Today: contribute to scientific oversight, protocol development, conferences, and
+                            outreach activities in psychedelic medicine research.
+                        </li>
+                        <li>
+                            <strong>Researcher in Neuroscience, Heroic Hearts Project UK</strong>, May 2024 — Jul 2025:
+                            supported clinical trial activities and data analysis for PTSD in veterans with traumatic
+                            brain injury.
+                        </li>
+                    </ul>
+                </div>
+            </article>
 
-    <h2>Selected Publications</h2>
+            <article class="entry">
+                <div class="date">Feb 2021 — May 2023</div>
+                <div>
+                    <h2 class="role">Associate Research Fellow</h2>
+                    <div class="org">University of Bari Aldo Moro <span class="meta">· Bari, Italy</span></div>
+                    <p>
+                        Engaged in projects related to grant writing and research across computational genomics, medical
+                        statistics, spatial epidemiology, and drug repurposing using network methods under Research
+                        Grant and Programma di Ricerca n. 06.207.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">HPC</span>
+                        <span class="tag">Microsoft Office</span>
+                    </div>
+                </div>
+            </article>
 
-    <ul>
-        <li>Synthetic Data in Healthcare and Drug Development (CPT: PSP, 2025)</li>
-        <li>Learning Characteristics of Graph Neural Networks Predicting Protein-Ligand Affinities (Nature Machine Intelligence, 2023)</li>
-        <li>A Bayesian Non-parametric Approach to Correct for Underreporting in Count Data (Biostatistics, 2023)</li>
-        <li>Psychedelics in Developmental Stuttering to Modulate Brain Functioning (Frontiers in Human Neuroscience, 2024)</li>
-    </ul>
+            <article class="entry">
+                <div class="date">Mar 2019 — Feb 2021</div>
+                <div>
+                    <h2 class="role">Data Scientist</h2>
+                    <div class="org">Multiple employers <span class="meta">· Italy</span></div>
+                    <ul>
+                        <li>
+                            <strong>Hospital Card. G. Panico</strong>, Jun 2020 — Feb 2021:
+                            led biostatistical and epidemiological research for the neurodegenerative diseases unit.
+                        </li>
+                        <li>
+                            <strong>InformaPRO</strong>, Mar 2019 — Sep 2019:
+                            managed HIV big data integrating epidemiological, phylogenetic, and clinical sources;
+                            performed statistical analyses and machine learning for multidrug resistance prediction.
+                        </li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Access</span>
+                        <span class="tag">Bash</span>
+                    </div>
+                </div>
+            </article>
 
-    <hr>
+            <article class="entry">
+                <div class="date">Feb 2018 — Dec 2018</div>
+                <div>
+                    <h2 class="role">Pharmacokinetics Researcher</h2>
+                    <div class="org">Angelini S.p.A Pharmaceutical Industry <span class="meta">· Rome, Italy</span></div>
+                    <p>
+                        Reviewed clinical trial protocols for GCP, managed SAS databases, conducted PK and PD analysis,
+                        supported regulatory affairs, and collaborated with multidisciplinary teams.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">WinNonlin</span>
+                        <span class="tag">R</span>
+                        <span class="tag">Microsoft Office</span>
+                    </div>
+                </div>
+            </article>
 
-    <h2>Links</h2>
+            <article class="entry">
+                <div class="date">Sep 2017 — Oct 2018</div>
+                <div>
+                    <h2 class="role">Pharmacometrician Trainee</h2>
+                    <div class="org">Great Ormond Street Hospital <span class="meta">· London, UK</span></div>
+                    <p>
+                        Researched the effects of renal clearance on cefepime pharmacokinetics in young cancer patients.
+                        Interned at UCL Institute of Child Health.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Fortran</span>
+                        <span class="tag">Perl</span>
+                        <span class="tag">NONMEM</span>
+                    </div>
+                </div>
+            </article>
 
-    <ul>
-        <li><a href="https://github.com/joosefupas" target="_blankli><a href="https://www.linkedin.com/in/giuseppe-pasculliLinkedIn</a></li>
-        <li><a href="https://orcid.org/0000-0002-0499-2292" target="_blank">ORCID</ class="footer">
-        © Giuseppe Pasculli
-    </div>
+            <article class="entry">
+                <div class="date">Apr 2014 — Sep 2017</div>
+                <div>
+                    <h2 class="role">Senior Pharmacist, Oncology, Paediatric Oncology, Aseptics and Clinical Trials</h2>
+                    <div class="org">NHS <span class="meta">· Portsmouth and Brighton, UK</span></div>
+                    <p>
+                        Worked across oncology, paediatric oncology, aseptics, clinical trials, pharmacovigilance, and
+                        clinical research. Reviewed chemotherapy prescriptions in line with Trust prescribing guidance,
+                        NICE guidance, and Sussex Cancer Network dose banding guidance.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Clinical Trials</span>
+                        <span class="tag">Oncology</span>
+                        <span class="tag">R</span>
+                        <span class="tag">Microsoft Office</span>
+                    </div>
+                </div>
+            </article>
+        </section>
 
+        <section>
+            <div class="section-title">Education</div>
+
+            <article class="entry">
+                <div class="date">2019 — 2023</div>
+                <div>
+                    <h2 class="role">PhD in Data Science</h2>
+                    <div class="org">Sapienza University of Rome <span class="meta">· DIAG, Italy</span></div>
+                    <p>
+                        Department of Computer, Control, and Management Engineering Antonio Ruberti.
+                    </p>
+                    <p>
+                        <strong>Thesis:</strong> Bias correction for underreported data in small area disease mapping.
+                    </p>
+                    <p>
+                        <strong>Main courses:</strong> Digital Epidemiology, Bioinformatics, Data Management for Data
+                        Science, Statistical Methods in Genetics, Bayesian Modelling, Stochastic Processes, Longitudinal
+                        Data Analysis, Medical Statistics, Spatial Epidemiology, Optimization Methods in Data Science,
+                        Computer Networking, Object Oriented Programming, and Software Engineering.
+                    </p>
+                </div>
+            </article>
+
+            <article class="entry">
+                <div class="date">2018 — 2019</div>
+                <div>
+                    <h2 class="role">PgDip in Data Science, Machine Learning and Big Data Analytics</h2>
+                    <div class="org">University of Bari <span class="meta">· Italy</span></div>
+                    <p>
+                        <strong>Grade:</strong> 110 Magna Cum Laude, First Class with Distinction.
+                    </p>
+                    <p>
+                        <strong>Thesis:</strong> Application of machine learning and deep learning for biomedical
+                        clinical risk prediction.
+                    </p>
+                    <p>
+                        <strong>Main topics:</strong> Big Data and Open Data, Data Management and Business Intelligence,
+                        Statistical Analysis of Data, Semantic Web and Linked Open Data, Data Visualization and Visual
+                        Analytics, Machine Learning and Data Mining, Text Analytics, Search Customization, Data Property
+                        and Management, and Social Data Science.
+                    </p>
+                </div>
+            </article>
+
+            <article class="entry">
+                <div class="date">2017 — 2018</div>
+                <div>
+                    <h2 class="role">MRes in Clinical Drug Development</h2>
+                    <div class="org">University College London <span class="meta">· London, UK</span></div>
+                    <p>
+                        <strong>Grade:</strong> Merit.
+                    </p>
+                    <p>
+                        <strong>Thesis:</strong> Effects of augmented renal clearance on the pharmacokinetic profile of
+                        cefepime in children and young adults with cancer.
+                    </p>
+                    <p>
+                        <strong>Main courses and training:</strong> Clinical trials statistics, R and Stata for clinical
+                        data analysis, drug discovery methodologies, advanced clinical pharmacology and precision
+                        medicine, research methodology and governance, GCP and clinical trials regulations, NONMEM,
+                        nlmixr, and WinNonlin for PK and PD analyses.
+                    </p>
+                </div>
+            </article>
+
+            <article class="entry">
+                <div class="date">2015 — 2017</div>
+                <div>
+                    <h2 class="role">PgDip in Clinical Pharmacy Practice and Independent Prescribing</h2>
+                    <div class="org">Robert Gordon University <span class="meta">· Aberdeen, Scotland</span></div>
+                    <p>
+                        <strong>Modules:</strong> Pharmaceutical Care Planning, Therapeutics, Developing and Implementing
+                        Models of Care, and Pharmacist Independent Prescribing.
+                    </p>
+                    <p>
+                        <strong>Scope of practice:</strong> Endocrinology and Oncology.
+                    </p>
+                </div>
+            </article>
+
+            <article class="entry">
+                <div class="date">2013 — 2014</div>
+                <div>
+                    <h2 class="role">PgDiploma in Clinical Pharmacy</h2>
+                    <div class="org">University of Cagliari <span class="meta">· Italy</span></div>
+                    <p>
+                        <strong>Activities:</strong> Clinical research in community pharmacies.
+                    </p>
+                    <p>
+                        <strong>Research project:</strong> Assessing the risk of osteoporotic fracture in healthy
+                        subjects, an observational study in Italian community pharmacies.
+                    </p>
+                </div>
+            </article>
+
+            <article class="entry">
+                <div class="date">2007 — 2012</div>
+                <div>
+                    <h2 class="role">Master of Pharmacy, Industrial Pharmacy</h2>
+                    <div class="org">Gabriele d'Annunzio University <span class="meta">· Chieti Pescara, Italy</span></div>
+                    <p>
+                        <strong>Grade:</strong> 110, First Class.
+                    </p>
+                    <p>
+                        <strong>Main subjects:</strong> Medicinal Chemistry, Analytical Chemistry, and Clinical
+                        Pharmacology.
+                    </p>
+                    <p>
+                        <strong>Thesis:</strong> Pharmacotherapeutic perspectives for developmental stuttering, a
+                        critical literature review.
+                    </p>
+                </div>
+            </article>
+        </section>
+
+        <section>
+            <div class="section-title">Areas of Interest</div>
+
+            <ul class="compact-list">
+                <li>Pharmacometrics and model-informed drug development</li>
+                <li>Exposure-response modelling</li>
+                <li>Bayesian modelling</li>
+                <li>Clinical trial simulation</li>
+                <li>Machine learning in drug development</li>
+                <li>Synthetic data and evidence generation</li>
+                <li>Neuroscience and psychedelic medicine research</li>
+            </ul>
+        </section>
+
+        <section>
+            <div class="section-title">Selected Publications</div>
+
+            <ul class="compact-list">
+                <li>Synthetic Data in Healthcare and Drug Development, CPT: PSP, 2025</li>
+                <li>Learning Characteristics of Graph Neural Networks Predicting Protein-Ligand Affinities, Nature Machine Intelligence, 2023</li>
+                <li>A Bayesian Non-parametric Approach to Correct for Underreporting in Count Data, Biostatistics, 2023</li>
+                <li>Psychedelics in Developmental Stuttering to Modulate Brain Functioning, Frontiers in Human Neuroscience, 2024</li>
+            </ul>
+        </section>
+
+        <footer>
+            © Giuseppe Pasculli
+        </footer>
+
+    </main>
 </body>
 
 </html>
