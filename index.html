@@ -10,15 +10,18 @@
         @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700&display=swap");
 
         :root {
-            --bg: #090a0f;
-            --bg-soft: #10111a;
-            --text: #f2f2f4;
-            --muted: #9ca3af;
-            --faint: #6b7280;
-            --line: #242631;
+            --bg: #080912;
+            --bg-soft: #10111c;
+            --bg-softer: #151727;
+            --text: #f4f4fb;
+            --muted: #a7adbd;
+            --faint: #70778d;
+            --line: rgba(255, 255, 255, 0.10);
             --pink: #ff4fd8;
             --cyan: #4deeea;
             --violet: #8b5cf6;
+            --yellow: #ffd166;
+            --green: #7dff72;
         }
 
         * {
@@ -32,9 +35,10 @@
         body {
             margin: 0;
             background:
-                radial-gradient(circle at top left, rgba(255, 79, 216, 0.12), transparent 28rem),
-                radial-gradient(circle at top right, rgba(77, 238, 234, 0.10), transparent 26rem),
-                linear-gradient(180deg, #090a0f 0%, #0c0d14 45%, #090a0f 100%);
+                radial-gradient(circle at top left, rgba(255, 79, 216, 0.14), transparent 30rem),
+                radial-gradient(circle at top right, rgba(77, 238, 234, 0.11), transparent 28rem),
+                radial-gradient(circle at 50% 110%, rgba(139, 92, 246, 0.14), transparent 36rem),
+                linear-gradient(180deg, #080912 0%, #0b0c15 42%, #080912 100%);
             color: var(--text);
             font-family: "IBM Plex Mono", monospace;
             font-size: 14px;
@@ -51,95 +55,138 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
             background-size: 42px 42px;
             mask-image: linear-gradient(to bottom, transparent, black 12%, black 78%, transparent);
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.018) 0,
+                rgba(255, 255, 255, 0.018) 1px,
+                transparent 2px,
+                transparent 5px
+            );
+            mix-blend-mode: screen;
+            opacity: 0.35;
+            z-index: 0;
         }
 
         .page {
             position: relative;
-            width: min(860px, calc(100% - 40px));
+            z-index: 1;
+            width: min(900px, calc(100% - 40px));
             margin: 0 auto;
-            padding: 42px 0 80px;
+            padding: 46px 0 84px;
         }
 
         header {
-            padding-bottom: 34px;
+            padding-bottom: 36px;
             border-bottom: 1px solid var(--line);
-            margin-bottom: 42px;
+            margin-bottom: 46px;
+        }
+
+        .eyebrow {
+            margin-bottom: 14px;
+            color: var(--cyan);
+            font-family: "Orbitron", sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-shadow: 0 0 18px rgba(77, 238, 234, 0.38);
         }
 
         .name {
-            margin: 0 0 10px;
+            margin: 0 0 14px;
             font-family: "Orbitron", sans-serif;
-            font-size: clamp(2.2rem, 6vw, 4.4rem);
-            line-height: 1;
-            letter-spacing: -0.05em;
+            font-size: clamp(2.35rem, 7vw, 5rem);
+            line-height: 0.96;
+            letter-spacing: -0.055em;
             text-transform: lowercase;
             color: var(--text);
         }
 
         .name span {
             color: var(--cyan);
-            text-shadow: 0 0 20px rgba(77, 238, 234, 0.35);
+            text-shadow:
+                0 0 18px rgba(77, 238, 234, 0.42),
+                0 0 44px rgba(77, 238, 234, 0.18);
         }
 
         .subtitle {
             color: var(--muted);
-            max-width: 700px;
+            max-width: 760px;
+            font-size: 0.98rem;
         }
 
         .subtitle strong {
             color: var(--pink);
-            font-weight: 500;
+            font-weight: 600;
+            text-shadow: 0 0 16px rgba(255, 79, 216, 0.32);
         }
 
         .contact {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px 18px;
-            margin-top: 18px;
+            gap: 10px 16px;
+            margin-top: 20px;
             color: var(--faint);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
+        }
+
+        .contact span,
+        .contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .contact a {
             color: var(--muted);
             text-decoration: none;
+            border-bottom: 1px solid transparent;
         }
 
         .contact a:hover {
             color: var(--cyan);
+            border-bottom-color: rgba(77, 238, 234, 0.45);
         }
 
         section {
-            margin-bottom: 46px;
+            margin-bottom: 50px;
         }
 
         .section-title {
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             color: var(--cyan);
             font-family: "Orbitron", sans-serif;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.16em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
+            text-shadow: 0 0 14px rgba(77, 238, 234, 0.25);
         }
 
         .section-title::after {
             content: "";
             flex: 1;
             height: 1px;
-            background: var(--line);
+            background: linear-gradient(90deg, var(--line), transparent);
         }
 
         .entry {
             display: grid;
-            grid-template-columns: 120px 1fr;
-            gap: 26px;
-            padding: 0 0 26px;
-            margin-bottom: 26px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            grid-template-columns: 128px 1fr;
+            gap: 28px;
+            padding: 0 0 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.075);
         }
 
         .entry:last-child {
@@ -150,7 +197,7 @@
 
         .date {
             color: var(--faint);
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             font-weight: 600;
             white-space: nowrap;
         }
@@ -165,7 +212,7 @@
         .org {
             margin-bottom: 10px;
             color: var(--pink);
-            font-size: 0.84rem;
+            font-size: 0.83rem;
         }
 
         .meta {
@@ -197,6 +244,20 @@
             color: var(--cyan);
         }
 
+        strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--pink);
+        }
+
         .tags {
             display: flex;
             flex-wrap: wrap;
@@ -209,21 +270,12 @@
             color: var(--cyan);
             border-radius: 999px;
             padding: 2px 8px;
-            font-size: 0.72rem;
-            background: rgba(77, 238, 234, 0.04);
+            font-size: 0.7rem;
+            background: rgba(77, 238, 234, 0.045);
         }
 
         .compact-list li {
             margin-bottom: 7px;
-        }
-
-        a {
-            color: var(--cyan);
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: var(--pink);
         }
 
         footer {
@@ -231,7 +283,97 @@
             padding-top: 22px;
             border-top: 1px solid var(--line);
             color: var(--faint);
-            font-size: 0.78rem;
+            font-size: 0.76rem;
+        }
+
+        /* Retrowave Pong */
+
+        .pong-wrap {
+            margin-top: 18px;
+            border: 1px solid rgba(77, 238, 234, 0.28);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255, 79, 216, 0.18), transparent 26rem),
+                linear-gradient(180deg, rgba(16, 17, 28, 0.96), rgba(8, 9, 18, 0.98));
+            box-shadow:
+                0 0 32px rgba(77, 238, 234, 0.08),
+                inset 0 0 42px rgba(255, 79, 216, 0.055);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .pong-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--muted);
+            font-size: 0.74rem;
+        }
+
+        .pong-title {
+            font-family: "Orbitron", sans-serif;
+            color: var(--cyan);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-shadow: 0 0 18px rgba(77, 238, 234, 0.42);
+        }
+
+        .pong-controls {
+            color: var(--faint);
+            text-align: right;
+        }
+
+        .pong-canvas-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background:
+                linear-gradient(to bottom, rgba(255, 79, 216, 0.08), transparent 38%),
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 22px,
+                    rgba(77, 238, 234, 0.045) 23px
+                ),
+                #070812;
+        }
+
+        #pongCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pong-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px 14px 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pong-buttons button {
+            font-family: "IBM Plex Mono", monospace;
+            color: var(--text);
+            background: rgba(77, 238, 234, 0.08);
+            border: 1px solid rgba(77, 238, 234, 0.35);
+            border-radius: 999px;
+            padding: 7px 12px;
+            cursor: pointer;
+        }
+
+        .pong-buttons button:hover {
+            color: var(--bg);
+            background: var(--cyan);
+            box-shadow: 0 0 18px rgba(77, 238, 234, 0.35);
+        }
+
+        .pong-note {
+            padding: 0 14px 14px;
+            color: var(--faint);
+            font-size: 0.74rem;
         }
 
         @media (max-width: 700px) {
@@ -240,7 +382,7 @@
             }
 
             .page {
-                width: min(100% - 28px, 860px);
+                width: min(100% - 28px, 900px);
                 padding-top: 32px;
             }
 
@@ -252,6 +394,15 @@
             .date {
                 color: var(--cyan);
             }
+
+            .pong-topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .pong-controls {
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -260,6 +411,8 @@
     <main class="page">
 
         <header>
+            <div class="eyebrow">pharmacometrics · data science · quantitative pharmacology</div>
+
             <h1 class="name">giuseppe <span>pasculli</span></h1>
 
             <div class="subtitle">
@@ -280,13 +433,13 @@
             <div class="section-title">Profile</div>
 
             <p>
-                I work in model-informed drug development, pharmacometrics, Bayesian statistics, machine learning, and
-                quantitative clinical pharmacology.
+                I work in model-informed drug development, pharmacometrics, Bayesian statistics, machine learning,
+                quantitative clinical pharmacology, and evidence generation.
             </p>
 
             <p>
-                Currently, I am a Principal Pharmacometrics Scientist at Novartis, supporting evidence generation and
-                quantitative decision-making in immunology and rare diseases.
+                Currently, I am a Principal Pharmacometrics Scientist at Novartis, supporting quantitative
+                decision-making in immunology and rare diseases.
             </p>
 
             <p>
@@ -317,10 +470,10 @@
                         <span class="tag">R</span>
                         <span class="tag">Python</span>
                         <span class="tag">Monolix</span>
+                        <span class="tag">nlmixr2</span>
                         <span class="tag">AI ML</span>
                         <span class="tag">HPC</span>
                         <span class="tag">AWS</span>
-                        <span class="tag">Jira</span>
                     </div>
                 </div>
             </article>
@@ -392,7 +545,7 @@
                         <span class="tag">R</span>
                         <span class="tag">Python</span>
                         <span class="tag">HPC</span>
-                        <span class="tag">Microsoft Office</span>
+                        <span class="tag">Statistics</span>
                     </div>
                 </div>
             </article>
@@ -417,7 +570,6 @@
                         <span class="tag">R</span>
                         <span class="tag">Python</span>
                         <span class="tag">SQL</span>
-                        <span class="tag">Access</span>
                         <span class="tag">Bash</span>
                     </div>
                 </div>
@@ -435,7 +587,7 @@
                     <div class="tags">
                         <span class="tag">WinNonlin</span>
                         <span class="tag">R</span>
-                        <span class="tag">Microsoft Office</span>
+                        <span class="tag">Clinical Pharmacology</span>
                     </div>
                 </div>
             </article>
@@ -471,8 +623,8 @@
                     <div class="tags">
                         <span class="tag">Clinical Trials</span>
                         <span class="tag">Oncology</span>
+                        <span class="tag">Aseptics</span>
                         <span class="tag">R</span>
-                        <span class="tag">Microsoft Office</span>
                     </div>
                 </div>
             </article>
@@ -512,12 +664,6 @@
                     <p>
                         <strong>Thesis:</strong> Application of machine learning and deep learning for biomedical
                         clinical risk prediction.
-                    </p>
-                    <p>
-                        <strong>Main topics:</strong> Big Data and Open Data, Data Management and Business Intelligence,
-                        Statistical Analysis of Data, Semantic Web and Linked Open Data, Data Visualization and Visual
-                        Analytics, Machine Learning and Data Mining, Text Analytics, Search Customization, Data Property
-                        and Management, and Social Data Science.
                     </p>
                 </div>
             </article>
@@ -618,11 +764,370 @@
             </ul>
         </section>
 
+        <section>
+            <div class="section-title">Retrowave Pong</div>
+
+            <div class="pong-wrap">
+                <div class="pong-topbar">
+                    <div class="pong-title">PONG.exe</div>
+                    <div class="pong-controls">
+                        Move: W/S or ↑/↓ · Pause: Space · Restart: R
+                    </div>
+                </div>
+
+                <div class="pong-canvas-wrap">
+                    <canvas id="pongCanvas" width="960" height="540" aria-label="Playable retrowave pong game"></canvas>
+                </div>
+
+                <div class="pong-buttons">
+                    <button type="button" id="pongStart">start / pause</button>
+                    <button type="button" id="pongRestart">restart</button>
+                    <button type="button" id="pongUp">up</button>
+                    <button type="button" id="pongDown">down</button>
+                </div>
+
+                <div class="pong-note">
+                    Single-player Pong. You control the left paddle. The right paddle is a simple AI.
+                </div>
+            </div>
+        </section>
+
         <footer>
             © Giuseppe Pasculli
         </footer>
 
     </main>
+
+    <script>
+        (() => {
+            const canvas = document.getElementById("pongCanvas");
+            if (!canvas) return;
+
+            const ctx = canvas.getContext("2d");
+
+            const startBtn = document.getElementById("pongStart");
+            const restartBtn = document.getElementById("pongRestart");
+            const upBtn = document.getElementById("pongUp");
+            const downBtn = document.getElementById("pongDown");
+
+            const W = canvas.width;
+            const H = canvas.height;
+
+            const neon = {
+                bg: "#070812",
+                grid: "rgba(77, 238, 234, 0.14)",
+                cyan: "#4deeea",
+                pink: "#ff4fd8",
+                violet: "#8b5cf6",
+                text: "#f2f2f4",
+                muted: "#9ca3af"
+            };
+
+            const state = {
+                running: false,
+                playerScore: 0,
+                aiScore: 0,
+                keys: {
+                    up: false,
+                    down: false
+                },
+                player: {
+                    x: 34,
+                    y: H / 2 - 48,
+                    w: 12,
+                    h: 96,
+                    speed: 7
+                },
+                ai: {
+                    x: W - 46,
+                    y: H / 2 - 48,
+                    w: 12,
+                    h: 96,
+                    speed: 4.8
+                },
+                ball: {
+                    x: W / 2,
+                    y: H / 2,
+                    r: 8,
+                    vx: 5.2,
+                    vy: 3.2,
+                    speedBoost: 1.035
+                }
+            };
+
+            function resetBall(direction = 1) {
+                state.ball.x = W / 2;
+                state.ball.y = H / 2;
+                state.ball.vx = 5.2 * direction;
+                state.ball.vy = (Math.random() > 0.5 ? 1 : -1) * (2.4 + Math.random() * 2.2);
+            }
+
+            function restartGame() {
+                state.playerScore = 0;
+                state.aiScore = 0;
+                state.player.y = H / 2 - state.player.h / 2;
+                state.ai.y = H / 2 - state.ai.h / 2;
+                resetBall(Math.random() > 0.5 ? 1 : -1);
+                state.running = true;
+            }
+
+            function clamp(value, min, max) {
+                return Math.max(min, Math.min(max, value));
+            }
+
+            function drawGlowRect(x, y, w, h, color) {
+                ctx.save();
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 18;
+                ctx.fillStyle = color;
+                ctx.fillRect(x, y, w, h);
+                ctx.restore();
+            }
+
+            function drawGlowCircle(x, y, r, color) {
+                ctx.save();
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 20;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function drawBackground() {
+                ctx.fillStyle = neon.bg;
+                ctx.fillRect(0, 0, W, H);
+
+                const horizon = H * 0.58;
+
+                const grad = ctx.createLinearGradient(0, 0, 0, H);
+                grad.addColorStop(0, "rgba(255, 79, 216, 0.13)");
+                grad.addColorStop(0.45, "rgba(139, 92, 246, 0.05)");
+                grad.addColorStop(1, "rgba(77, 238, 234, 0.03)");
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, W, H);
+
+                ctx.strokeStyle = neon.grid;
+                ctx.lineWidth = 1;
+
+                for (let y = horizon; y < H; y += 24) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(W, y);
+                    ctx.stroke();
+                }
+
+                for (let x = -W; x <= W * 2; x += 80) {
+                    ctx.beginPath();
+                    ctx.moveTo(W / 2, horizon);
+                    ctx.lineTo(x, H);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = "rgba(255, 79, 216, 0.22)";
+                ctx.setLineDash([12, 14]);
+                ctx.beginPath();
+                ctx.moveTo(W / 2, 40);
+                ctx.lineTo(W / 2, H - 40);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            function drawText() {
+                ctx.save();
+
+                ctx.font = "600 42px Orbitron, IBM Plex Mono, monospace";
+                ctx.fillStyle = neon.text;
+                ctx.textAlign = "center";
+                ctx.shadowColor = neon.cyan;
+                ctx.shadowBlur = 12;
+                ctx.fillText(`${state.playerScore}   ${state.aiScore}`, W / 2, 66);
+
+                if (!state.running) {
+                    ctx.font = "600 24px Orbitron, IBM Plex Mono, monospace";
+                    ctx.fillStyle = neon.pink;
+                    ctx.shadowColor = neon.pink;
+                    ctx.shadowBlur = 16;
+                    ctx.fillText("PRESS SPACE OR START", W / 2, H / 2 - 34);
+
+                    ctx.font = "14px IBM Plex Mono, monospace";
+                    ctx.fillStyle = neon.muted;
+                    ctx.shadowBlur = 0;
+                    ctx.fillText("W/S or ↑/↓ to move · R to restart", W / 2, H / 2);
+                }
+
+                ctx.restore();
+            }
+
+            function draw() {
+                drawBackground();
+
+                drawGlowRect(
+                    state.player.x,
+                    state.player.y,
+                    state.player.w,
+                    state.player.h,
+                    neon.cyan
+                );
+
+                drawGlowRect(
+                    state.ai.x,
+                    state.ai.y,
+                    state.ai.w,
+                    state.ai.h,
+                    neon.pink
+                );
+
+                drawGlowCircle(
+                    state.ball.x,
+                    state.ball.y,
+                    state.ball.r,
+                    neon.text
+                );
+
+                drawText();
+            }
+
+            function paddleCollision(paddle) {
+                const b = state.ball;
+
+                return (
+                    b.x - b.r < paddle.x + paddle.w &&
+                    b.x + b.r > paddle.x &&
+                    b.y - b.r < paddle.y + paddle.h &&
+                    b.y + b.r > paddle.y
+                );
+            }
+
+            function update() {
+                if (!state.running) return;
+
+                if (state.keys.up) {
+                    state.player.y -= state.player.speed;
+                }
+
+                if (state.keys.down) {
+                    state.player.y += state.player.speed;
+                }
+
+                state.player.y = clamp(state.player.y, 20, H - state.player.h - 20);
+
+                const aiCenter = state.ai.y + state.ai.h / 2;
+                const target = state.ball.y;
+
+                if (target < aiCenter - 12) {
+                    state.ai.y -= state.ai.speed;
+                } else if (target > aiCenter + 12) {
+                    state.ai.y += state.ai.speed;
+                }
+
+                state.ai.y = clamp(state.ai.y, 20, H - state.ai.h - 20);
+
+                state.ball.x += state.ball.vx;
+                state.ball.y += state.ball.vy;
+
+                if (state.ball.y - state.ball.r <= 0 || state.ball.y + state.ball.r >= H) {
+                    state.ball.vy *= -1;
+                    state.ball.y = clamp(state.ball.y, state.ball.r, H - state.ball.r);
+                }
+
+                if (paddleCollision(state.player) && state.ball.vx < 0) {
+                    const hit = (state.ball.y - (state.player.y + state.player.h / 2)) / (state.player.h / 2);
+                    state.ball.vx = Math.abs(state.ball.vx) * state.ball.speedBoost;
+                    state.ball.vy = hit * 5.2;
+                    state.ball.x = state.player.x + state.player.w + state.ball.r;
+                }
+
+                if (paddleCollision(state.ai) && state.ball.vx > 0) {
+                    const hit = (state.ball.y - (state.ai.y + state.ai.h / 2)) / (state.ai.h / 2);
+                    state.ball.vx = -Math.abs(state.ball.vx) * state.ball.speedBoost;
+                    state.ball.vy = hit * 5.2;
+                    state.ball.x = state.ai.x - state.ball.r;
+                }
+
+                if (state.ball.x < -20) {
+                    state.aiScore += 1;
+                    resetBall(1);
+                }
+
+                if (state.ball.x > W + 20) {
+                    state.playerScore += 1;
+                    resetBall(-1);
+                }
+            }
+
+            function loop() {
+                update();
+                draw();
+                requestAnimationFrame(loop);
+            }
+
+            window.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") {
+                    state.keys.up = true;
+                    e.preventDefault();
+                }
+
+                if (e.key === "ArrowDown" || e.key.toLowerCase() === "s") {
+                    state.keys.down = true;
+                    e.preventDefault();
+                }
+
+                if (e.code === "Space") {
+                    state.running = !state.running;
+                    e.preventDefault();
+                }
+
+                if (e.key.toLowerCase() === "r") {
+                    restartGame();
+                }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") {
+                    state.keys.up = false;
+                }
+
+                if (e.key === "ArrowDown" || e.key.toLowerCase() === "s") {
+                    state.keys.down = false;
+                }
+            });
+
+            startBtn?.addEventListener("click", () => {
+                state.running = !state.running;
+            });
+
+            restartBtn?.addEventListener("click", restartGame);
+
+            upBtn?.addEventListener("pointerdown", () => {
+                state.keys.up = true;
+            });
+
+            upBtn?.addEventListener("pointerup", () => {
+                state.keys.up = false;
+            });
+
+            upBtn?.addEventListener("pointerleave", () => {
+                state.keys.up = false;
+            });
+
+            downBtn?.addEventListener("pointerdown", () => {
+                state.keys.down = true;
+            });
+
+            downBtn?.addEventListener("pointerup", () => {
+                state.keys.down = false;
+            });
+
+            downBtn?.addEventListener("pointerleave", () => {
+                state.keys.down = false;
+            });
+
+            draw();
+            loop();
+        })();
+    </script>
 </body>
 
 </html>
